@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ada.osc.taskie.model.Task;
+import ada.osc.taskie.model.TaskPriority;
 
 public class FakeDatabase {
 
@@ -29,4 +30,8 @@ public class FakeDatabase {
 		mTasks.remove(task);
 	}
 
+	public void changePriority(Task task) {
+		TaskPriority taskPriority = task.getPriority();
+		task.setPriority(taskPriority.next());
+	}
 }

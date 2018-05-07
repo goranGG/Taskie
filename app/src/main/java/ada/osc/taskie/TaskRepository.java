@@ -38,4 +38,8 @@ public class TaskRepository {
 		mDatabase.delete(task);
 	}
 
+	public void changePriority(Task task){
+		mDatabase.changePriority(task);
+	}
+
 }

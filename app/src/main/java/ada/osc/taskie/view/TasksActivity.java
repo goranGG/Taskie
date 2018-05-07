@@ -8,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -54,6 +53,12 @@ public class TasksActivity extends AppCompatActivity {
         @Override
         public void onLongClick(Task task) {
             mRepository.removeTask(task);
+            updateTasksDisplay();
+        }
+
+        @Override
+        public void changePriority(Task task){
+            mRepository.changePriority(task);
             updateTasksDisplay();
         }
     };

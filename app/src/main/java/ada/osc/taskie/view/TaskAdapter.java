@@ -2,6 +2,7 @@ package ada.osc.taskie.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,5 +88,11 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 			mListener.onLongClick(mTasks.get(getAdapterPosition()));
 			return true;
 		}
+
+		@OnClick(R.id.imageview_task_priority)
+		public void changeTaskPriority(){
+		    Log.i("test", String.valueOf(mTasks.get(getAdapterPosition())));
+            mListener.changePriority(mTasks.get(getAdapterPosition()));
+        }
 	}
 }
