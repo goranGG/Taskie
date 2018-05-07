@@ -66,7 +66,5 @@ public class Task implements Serializable{
 		mPriority = priority;
 	}
 
-	public void updateTask(Task task){
 
-	}
 }

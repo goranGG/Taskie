@@ -112,6 +112,7 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         if (extras == null) {
             try {
                 if (!title.trim().equals("")) {
+                    Log.i(TAG, "extreas == null");
                     Task newTask = new Task(title, description, priority, dueDate);
                     Intent saveTaskIntent = new Intent(this, TasksActivity.class);
                     saveTaskIntent.putExtra(TasksActivity.EXTRA_TASK, newTask);
@@ -127,28 +128,16 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         } else {
             // load task and update
             List<Task> tasks = getTasksFromTasksRepository();
-            int taskIndex = -1;
-            // get single task
-            for (Task task : tasks) {
-                for (int position = 0; position < tasks.size(); position++) {
-                    if (task.getId() == getIntent().getIntExtra("taskId", -1)) {
-                        taskIndex = position;
-                    }
-                }
-            }
-            Task task = getTasksFromTasksRepository().get(taskIndex);
+
+            Task task = tasks.get(getIntent().getIntExtra("taskId",-1));
             task.setTitle(title);
             task.setDescription(description);
             task.setmDueDate(dueDate);
             task.setPriority(priority);
-//            finish();
             Intent saveTaskIntent = new Intent(this, TasksActivity.class);
-            saveTaskIntent.putExtra(TasksActivity.EXTRA_TASK, task);
             setResult(RESULT_OK, saveTaskIntent);
             finish();
-
         }
-
     }
 
     private List<Task> getTasksFromTasksRepository() {

@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class TasksActivity extends AppCompatActivity {
     private static final String TAG = TasksActivity.class.getSimpleName();
     private static final int REQUEST_NEW_TASK = 10;
     public static final String EXTRA_TASK = "task";
+    private static final int REQUEST_UPDATE_TASK = 20;
 
     TaskRepository mRepository = TaskRepository.getInstance();
     TaskAdapter mTaskAdapter;
@@ -37,15 +39,15 @@ public class TasksActivity extends AppCompatActivity {
     TaskClickListener mListener = new TaskClickListener() {
         @Override
         public void onClick(Task task) {
-            toastTask(task);
             Intent updateTask = new Intent();
             updateTask.setClass(getBaseContext(), NewTaskActivity.class);
+
             updateTask.putExtra("taskTitle", task.getTitle());
             updateTask.putExtra("taskDescription", task.getDescription());
             updateTask.putExtra("taskDueDate", task.getmDueDate());
             updateTask.putExtra("taskPriority", task.getPriority());
             updateTask.putExtra("taskId", task.getId());
-            startActivityForResult(updateTask, REQUEST_NEW_TASK);
+            startActivityForResult(updateTask, REQUEST_UPDATE_TASK);
             updateTasksDisplay();
         }
 
@@ -101,7 +103,7 @@ public class TasksActivity extends AppCompatActivity {
     private void toastTask(Task task) {
         Toast.makeText(
                 this,
-                task.getTitle() + "\n" + task.getPriority(),
+                task.getTitle() + "\n" + mRepository.getTasks().indexOf(task),
                 Toast.LENGTH_SHORT
         ).show();
     }
@@ -124,6 +126,9 @@ public class TasksActivity extends AppCompatActivity {
                 updateTasksDisplay();
 
             }
+        }
+        else if (requestCode == REQUEST_UPDATE_TASK && resultCode == RESULT_OK){
+            updateTasksDisplay();
         }
     }
 }
