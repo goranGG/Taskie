@@ -66,5 +66,9 @@ public class Task implements Serializable{
 		mPriority = priority;
 	}
 
+	public void toggleComplete(boolean completed){
+		mCompleted = !completed;
+	}
+
 
 }

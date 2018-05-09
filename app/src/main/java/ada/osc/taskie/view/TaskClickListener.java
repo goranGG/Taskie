@@ -6,4 +6,5 @@ public interface TaskClickListener {
 	void onClick(Task task);
 	void onLongClick(Task task);
 	void changePriority(Task task);
+	void toggleComplete(Task task);
 }

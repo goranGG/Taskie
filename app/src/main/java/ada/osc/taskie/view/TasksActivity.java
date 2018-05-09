@@ -9,8 +9,14 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import ada.osc.taskie.R;
@@ -34,6 +40,8 @@ public class TasksActivity extends AppCompatActivity {
     FloatingActionButton mNewTask;
     @BindView(R.id.recycler_tasks)
     RecyclerView mTasksRecycler;
+    @BindView(R.id.sortButton)
+    Button mSortButton;
 
     TaskClickListener mListener = new TaskClickListener() {
         @Override
@@ -59,6 +67,13 @@ public class TasksActivity extends AppCompatActivity {
         @Override
         public void changePriority(Task task){
             mRepository.changePriority(task);
+            updateTasksDisplay();
+        }
+
+        @Override
+        public void toggleComplete(Task task){
+            toastTask(task);
+            mRepository.toggleComplete(task);
             updateTasksDisplay();
         }
     };
@@ -108,7 +123,7 @@ public class TasksActivity extends AppCompatActivity {
     private void toastTask(Task task) {
         Toast.makeText(
                 this,
-                task.getTitle() + "\n" + mRepository.getTasks().indexOf(task),
+                task.getTitle() + "\n" + task.isCompleted(),
                 Toast.LENGTH_SHORT
         ).show();
     }
@@ -118,6 +133,23 @@ public class TasksActivity extends AppCompatActivity {
         Intent newTask = new Intent();
         newTask.setClass(this, NewTaskActivity.class);
         startActivityForResult(newTask, REQUEST_NEW_TASK);
+    }
+
+    @OnClick(R.id.sortButton)
+    public void sortList(){
+        List<Task> tasks = mRepository.getTasks();
+        Collections.sort(tasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                return t2.getPriority().compareTo(t1.getPriority());
+            }
+        });
+        Toast.makeText(
+                this,
+                tasks.toString(),
+                Toast.LENGTH_SHORT
+        ).show();
+        mTaskAdapter.updateTasks(tasks);
     }
 
     @Override

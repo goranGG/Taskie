@@ -91,8 +91,12 @@ class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
 		@OnClick(R.id.imageview_task_priority)
 		public void changeTaskPriority(){
-		    Log.i("test", String.valueOf(mTasks.get(getAdapterPosition())));
             mListener.changePriority(mTasks.get(getAdapterPosition()));
         }
+
+        @OnClick(R.id.toggleButton_task_completed)
+		public void toggleComplete(){
+			mListener.toggleComplete(mTasks.get(getAdapterPosition()));
+		}
 	}
 }

@@ -9,7 +9,7 @@ import ada.osc.taskie.model.TaskGenerator;
 public class TaskRepository {
 
 	private static TaskRepository sRepository = null;
-	private static final int INITIAL_TASK_COUNT = 2;
+	private static final int INITIAL_TASK_COUNT = 5;
 
 	private FakeDatabase mDatabase;
 
@@ -40,6 +40,10 @@ public class TaskRepository {
 
 	public void changePriority(Task task){
 		mDatabase.changePriority(task);
+	}
+
+	public void toggleComplete(Task task) {
+		mDatabase.toggleComplete(task);
 	}
 
 }

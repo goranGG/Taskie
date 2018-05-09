@@ -34,4 +34,8 @@ public class FakeDatabase {
 		TaskPriority taskPriority = task.getPriority();
 		task.setPriority(taskPriority.next());
 	}
+
+	public void toggleComplete(Task task){
+		task.toggleComplete(task.isCompleted());
+	}
 }

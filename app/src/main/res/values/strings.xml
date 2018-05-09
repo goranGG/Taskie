@@ -3,4 +3,6 @@
     <string name="newTask_title_hint">Enter title</string>
     <string name="newTask_description_hint">Enter description</string>
     <string name="button_newtask_datepicker">Pick date</string>
+    <string name="toggleButton_task_completed_off">To do</string>
+    <string name="toggleButton_task_completed_on">Done</string>
 </resources>
