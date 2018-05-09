@@ -35,6 +35,8 @@ public class TasksActivity extends AppCompatActivity {
 
     TaskRepository mRepository = TaskRepository.getInstance();
     TaskAdapter mTaskAdapter;
+    List<Task> tasks = mRepository.getTasks();
+
 
     @BindView(R.id.fab_tasks_addNew)
     FloatingActionButton mNewTask;
@@ -113,7 +115,6 @@ public class TasksActivity extends AppCompatActivity {
     }
 
     private void updateTasksDisplay() {
-        List<Task> tasks = mRepository.getTasks();
         mTaskAdapter.updateTasks(tasks);
         for (Task t : tasks) {
             Log.d(TAG, t.getTitle());
@@ -137,7 +138,6 @@ public class TasksActivity extends AppCompatActivity {
 
     @OnClick(R.id.sortButton)
     public void sortList(){
-        List<Task> tasks = mRepository.getTasks();
         Collections.sort(tasks, new Comparator<Task>() {
             @Override
             public int compare(Task t1, Task t2) {
